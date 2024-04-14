@@ -1,6 +1,6 @@
 import { Route, Routes } from 'react-router-dom';
-import { RootLayout } from '@/layouts/';
-import { Home } from '@/pages';
+import { RootLayout, AuthLayout } from '@/layouts/';
+import { Home, SignIn, SignUp, Account } from '@/pages';
 
 //<> ===  Imported Components Ends === <>\\
 
@@ -11,6 +11,11 @@ function App() {
 				<Route element={<RootLayout />}>
 					<Route index element={<Home />} />
 				</Route>
+				<Route element={<AuthLayout />}>
+					<Route path='/sign-in' element={<SignIn />} />
+					<Route path='/sign-up' element={<SignUp />} />
+				</Route>
+				<Route path='/account' element={<Account />} />
 			</Routes>
 		</>
 	);
