@@ -1,5 +1,6 @@
 import { Route, Routes } from 'react-router-dom';
 import { RootLayout, AuthLayout } from '@/layouts/';
+import { ProtectedRoute } from '@/components';
 import { Home, SignIn, SignUp, Account } from '@/pages';
 
 //<> ===  Imported Components Ends === <>\\
@@ -15,7 +16,14 @@ function App() {
 					<Route path='/sign-in' element={<SignIn />} />
 					<Route path='/sign-up' element={<SignUp />} />
 				</Route>
-				<Route path='/account' element={<Account />} />
+				<Route
+					path='/account'
+					element={
+						<ProtectedRoute>
+							<Account />
+						</ProtectedRoute>
+					}
+				/>
 			</Routes>
 		</>
 	);

@@ -6,7 +6,8 @@ import {
 	onAuthStateChanged,
 } from 'firebase/auth';
 import PropTypes from 'prop-types';
-import { auth } from '@/firebase';
+import { auth, db } from '@/firebase';
+import { doc, setDoc } from 'firebase/firestore';
 
 //<> ===  Imported Components Ends === <>\\
 
@@ -14,8 +15,12 @@ const AuthContext = createContext();
 
 export const AuthProvider = ({ children }) => {
 	const [user, setUser] = useState({});
+
 	function signUp(email, password) {
-		return createUserWithEmailAndPassword(auth, email, password);
+		createUserWithEmailAndPassword(auth, email, password);
+		setDoc(doc(db, 'users', email), {
+			savedShows: [],
+		});
 	}
 
 	function signIn(email, password) {
@@ -23,7 +28,7 @@ export const AuthProvider = ({ children }) => {
 	}
 
 	function logOut() {
-		return signOut();
+		return signOut(auth);
 	}
 
 	useEffect(() => {

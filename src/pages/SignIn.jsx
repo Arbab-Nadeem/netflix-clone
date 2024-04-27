@@ -6,7 +6,8 @@ import { useState } from 'react';
 
 const SignIn = () => {
 	const [loading, setLoading] = useState(false);
-	const { signUp } = useAuthContext();
+	const { signIn } = useAuthContext();
+	const [error, setError] = useState('');
 	const navigate = useNavigate();
 
 	const [formData, setFormData] = useState({
@@ -23,10 +24,11 @@ const SignIn = () => {
 
 	const handleSubmit = async (event) => {
 		event.preventDefault();
+		setError('');
 		setLoading(true);
 
 		try {
-			await signUp(formData.email, formData.password);
+			await signIn(formData.email, formData.password);
 			navigate('/');
 			setFormData({
 				email: '',
@@ -34,6 +36,7 @@ const SignIn = () => {
 			});
 		} catch (error) {
 			console.log(error);
+			setError(error.message);
 		} finally {
 			setLoading(false);
 		}
@@ -50,21 +53,30 @@ const SignIn = () => {
 					</Link>
 					<div className='max-w-[320px] mx-auto py-8'>
 						<h1 className='text-3xl font-bold'>Sign In</h1>
-						<form action='' className='w-full flex flex-col py-4'>
+						{error && (
+							<p className='text-red-600 bg-gray-900/60 p-2 mt-2'>{error}</p>
+						)}
+						<form onSubmit={handleSubmit} className='w-full flex flex-col py-4'>
 							<input
 								type='email'
+								name='email'
 								placeholder='Email'
 								autoComplete='email'
 								className='p-3 my-2 bg-gray-800 rounded'
+								value={formData.email}
+								onChange={(e) => handleChange(e)}
 							/>
 							<input
 								type='password'
+								name='password'
 								placeholder='Password'
 								autoComplete='current-password'
 								className='p-3 my-2 bg-gray-800 rounded'
+								value={formData.password}
+								onChange={(e) => handleChange(e)}
 							/>
 							<button className='bg-red-600 py-3 my-6 rounded font-bold'>
-								Sign In
+								{loading ? 'Loading...' : 'Sign In'}
 							</button>
 							<div className='flex justify-between items-center text-sm text-gray-500'>
 								<p>

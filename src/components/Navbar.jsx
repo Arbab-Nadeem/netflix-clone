@@ -23,7 +23,7 @@ const Navbar = () => {
 					Netflix
 				</h1>
 			</Link>
-			{user.email ? (
+			{user?.email ? (
 				<div>
 					<Link to={'/account'}>
 						<button className='text-white pr-4'>Account</button>

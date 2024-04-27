@@ -58,7 +58,7 @@ const SignUp = () => {
 								autoComplete='email'
 								className='p-3 my-2 bg-gray-800 rounded'
 								value={formData.email}
-								onChange={() => handleChange()}
+								onChange={(e) => handleChange(e)}
 							/>
 							<input
 								type='password'
@@ -67,14 +67,14 @@ const SignUp = () => {
 								autoComplete='current-password'
 								className='p-3 my-2 bg-gray-800 rounded'
 								value={formData.password}
-								onChange={handleChange}
+								onChange={(e) => handleChange(e)}
 							/>
 							<button
 								type='submit'
 								className='bg-red-600 py-3 my-6 rounded font-bold'
 								disabled={loading}
 							>
-								{loading ? 'Loading...' : 'Sign Up'}{' '}
+								{loading ? 'Loading...' : 'Sign Up'}
 							</button>
 							<div className='flex justify-between items-center text-sm text-gray-500'>
 								<p>
